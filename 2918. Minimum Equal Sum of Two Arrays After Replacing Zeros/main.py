@@ -1,37 +1,40 @@
-import collections
-
 class Solution(object):
-    def findEvenNumbers(self, digits):
+    def minSum(self, nums1, nums2):
         """
-        :type digits: List[int]
-        :rtype: List[int]
+        Calculate the minimum possible equal sum by replacing zeros with positive integers.
+
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: int
         """
-        # Count the frequency of each digit in the input list
-        digit_freq = collections.Counter(digits)        
+        # Initialize sum of non-zero elements and count of zeros in nums1
+        sum_nonzero1, count_zero1 = 0, 0
+        for num in nums1:
+            if num == 0:
+                count_zero1 += 1
+            else:
+                sum_nonzero1 += num
 
-        valid_3_digit_even_numbers = []
+        # Initialize sum of non-zero elements and count of zeros in nums2
+        sum_nonzero2, count_zero2 = 0, 0
+        for num in nums2:
+            if num == 0:
+                count_zero2 += 1
+            else:
+                sum_nonzero2 += num
 
-        # Iterate through all 3-digit even numbers from 100 to 998 (step by 2 to ensure even)
-        for num in range(100, 1000, 2):
-            hundreds = num // 100              # Extract hundreds place
-            tens = (num // 10) % 10            # Extract tens place
-            units = num % 10                   # Extract units place
+        # Minimum possible sum for both arrays by replacing zeros with 1
+        min_possible_sum1 = sum_nonzero1 + count_zero1
+        min_possible_sum2 = sum_nonzero2 + count_zero2
 
-            # Count the frequency of digits required to form this number
-            required_freq = collections.Counter([hundreds, tens, units])
+        # If either array has no zero and its sum is strictly less than the other, return -1
+        if (count_zero1 == 0 and sum_nonzero1 < min_possible_sum2) or \
+           (count_zero2 == 0 and sum_nonzero2 < min_possible_sum1):
+            return -1
 
-            # Check if all required digits are available in the input list
-            is_possible = True
-            for digit, count in required_freq.items():
-                if digit_freq[digit] < count:
-                    is_possible = False
-                    break
-            
-            # If the number can be formed, add it to the result list
-            if is_possible:
-                valid_3_digit_even_numbers.append(num)
+        # Return the larger of the two minimum possible sums
+        return max(min_possible_sum1, min_possible_sum2)
 
-        return valid_3_digit_even_numbers
 
-# time complexity O(N) (N to count freq of each digit + (const iterative time for even numbers between 100 to 999)) 
-# space complexity O(1) (10 digit frequency + o(K) for even numbers found between 100 to 999 which fits digit requirement) 
+# time complexity O(M+N) (M elements in nums1) 
+# space complexity O(1) (N elements in nums1) 
