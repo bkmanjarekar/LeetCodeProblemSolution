@@ -1,27 +1,36 @@
-You are given two arrays nums1 and nums2 consisting of positive integers.
+You are given an integer array digits, where each element is a digit. The array may contain duplicates.
 
-You have to replace all the 0's in both arrays with strictly positive integers such that the sum of elements of both arrays becomes equal.
+You need to find all the unique integers that follow the given requirements:
 
-Return the minimum equal sum you can obtain, or -1 if it is impossible.
+The integer consists of the concatenation of three elements from digits in any arbitrary order.
+The integer does not have leading zeros.
+The integer is even.
+For example, if the given digits were [1, 2, 3], integers 132 and 312 follow the requirements.
+
+Return a sorted array of the unique integers.
 
  
 
 Example 1:
 
-Input: nums1 = [3,2,0,1,0], nums2 = [6,5,0]
-Output: 12
-Explanation: We can replace 0's in the following way:
-- Replace the two 0's in nums1 with the values 2 and 4. The resulting array is nums1 = [3,2,2,1,4].
-- Replace the 0 in nums2 with the value 1. The resulting array is nums2 = [6,5,1].
-Both arrays have an equal sum of 12. It can be shown that it is the minimum sum we can obtain.
+Input: digits = [2,1,3,0]
+Output: [102,120,130,132,210,230,302,310,312,320]
+Explanation: All the possible integers that follow the requirements are in the output array. 
+Notice that there are no odd integers or integers with leading zeros.
 Example 2:
 
-Input: nums1 = [2,0,2,0], nums2 = [1,4]
-Output: -1
-Explanation: It is impossible to make the sum of both arrays equal.
+Input: digits = [2,2,8,8,2]
+Output: [222,228,282,288,822,828,882]
+Explanation: The same digit can be used as many times as it appears in digits. 
+In this example, the digit 8 is used twice each time in 288, 828, and 882. 
+Example 3:
+
+Input: digits = [3,7,5]
+Output: []
+Explanation: No even integers can be formed using the given digits.
  
 
 Constraints:
 
-1 <= nums1.length, nums2.length <= 105
-0 <= nums1[i], nums2[i] <= 106
+3 <= digits.length <= 100
+0 <= digits[i] <= 9
